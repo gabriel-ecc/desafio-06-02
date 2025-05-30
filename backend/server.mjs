@@ -2,7 +2,7 @@ import express from "express";
 import "dotenv/config";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
-import { registrarCancion, mostrarCanciones, updateSong } from "./operaciones.mjs";
+import { registrarCancion, mostrarCanciones, updateSong, deleteSong } from "./operaciones.mjs";
 
 const app = express();
 app.use(express.json());
@@ -50,4 +50,8 @@ app.put("/canciones/:id", (req, res) => {
 
 });
 
-app.delete("/canciones/:id", (req, res) => {});
+app.delete("/canciones/:id", (req, res) => {
+  const id = req.params.id;
+  deleteSong(id);
+  res.status(200);
+});

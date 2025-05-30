@@ -24,7 +24,7 @@ const mostrarCanciones = () => {
 const updateSong = (objectSong) => {
   try {
     const songs = JSON.parse(fs.readFileSync(_pathName, "utf8"));
-    const songToUpdate = songs.find(s => s.id === objectSong.id);
+    const songToUpdate = songs.find((s) => s.id === objectSong.id);
     songToUpdate.titulo = objectSong.titulo;
     songToUpdate.artista = objectSong.artista;
     songToUpdate.tono = objectSong.tono;
@@ -35,4 +35,15 @@ const updateSong = (objectSong) => {
   }
 };
 
-export { registrarCancion, mostrarCanciones, updateSong };
+const deleteSong = (id) => {
+  try {
+    const songs = JSON.parse(fs.readFileSync(_pathName, "utf8"));
+    const newSongs = songs.filter((s) => s.id !== id);
+    fs.writeFileSync(_pathName, JSON.stringify(newSongs));
+    console.log(`Elemento eliminado ${id}`);
+  } catch (error) {
+    console.log("Error en eliminar cancion", error);
+  }
+};
+
+export { registrarCancion, mostrarCanciones, updateSong, deleteSong };
