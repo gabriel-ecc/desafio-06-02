@@ -53,5 +53,5 @@ app.put("/canciones/:id", (req, res) => {
 app.delete("/canciones/:id", (req, res) => {
   const id = req.params.id;
   deleteSong(id);
-  res.status(200);
+  res.status(200).json(mostrarCanciones());
 });
