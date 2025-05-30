@@ -21,4 +21,18 @@ const mostrarCanciones = () => {
   }
 };
 
-export { registrarCancion, mostrarCanciones };
+const updateSong = (objectSong) => {
+  try {
+    const songs = JSON.parse(fs.readFileSync(_pathName, "utf8"));
+    const songToUpdate = songs.find(s => s.id === objectSong.id);
+    songToUpdate.titulo = objectSong.titulo;
+    songToUpdate.artista = objectSong.artista;
+    songToUpdate.tono = objectSong.tono;
+    fs.writeFileSync(_pathName, JSON.stringify(songs));
+    console.log("Elemento actuializado exitosamente.");
+  } catch (error) {
+    console.log("Error en actualizar cancion", error);
+  }
+};
+
+export { registrarCancion, mostrarCanciones, updateSong };
