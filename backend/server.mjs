@@ -3,6 +3,7 @@ import "dotenv/config";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
 import { registrarCancion, mostrarCanciones } from "./operaciones.mjs";
+import fs from 'fs'
 
 const app = express();
 app.use(express.json());
@@ -38,7 +39,7 @@ app.get("/canciones", (req, res) => {
   res.status(200).json(mostrarCanciones());
 });
 
-//REQ-04
+
 
 app.put("/canciones/:id", (req, res) => {
   try {
@@ -56,11 +57,11 @@ app.put("/canciones/:id", (req, res) => {
         fs.writeFileSync('./data/repertorio.json', JSON.stringify(canciones))
         res.json({ mensaje: 'Canción editada!.' })
     } catch (error) {
-        res.status(500).json({mensaje:'No se pudo borrar la canción',error:error.message})
+        res.status(500).json({mensaje:'No se pudo editar la canción',error:error.message})
     }
 });
 
-//REQ-05
+
 app.delete("/canciones/:id", (req, res) => {
       try {
         const {id} = req.params
